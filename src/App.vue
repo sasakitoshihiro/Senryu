@@ -60,7 +60,11 @@ export default {
         });
     },
     onFormSubmitted(data) {
-      // this.loadSenryuData();
+      firebase
+        .firestore()
+        .collection('keys')
+        .add(data);
+      this.loadSenryuData();
       this.isFormSubmitted = true;
       this.submittedData = data;
     },
