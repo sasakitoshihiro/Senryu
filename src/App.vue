@@ -25,6 +25,7 @@
 
 <script>
 import firebase from 'firebase/app';
+import 'firebase/auth';
 import HeaderComponent from './components/HeaderComponent.vue';
 import BodyComponent from './components/BodyComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
@@ -43,9 +44,19 @@ export default {
     };
   },
   created() {
+    this.loginAnonymously();
     this.loadSenryuData();
   },
   methods: {
+    loginAnonymously() {
+      firebase.auth().signInAnonymously()
+        .then((userCredential) => {
+          console.log('User signed in anonymously:', userCredential.user.uid);
+        })
+        .catch((error) => {
+          console.error('Error signing in anonymously:', error);
+        });
+    },
     loadSenryuData() {
       firebase
         .firestore()
