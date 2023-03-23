@@ -6,7 +6,8 @@
     <button v-if="user" @click="logout">ログアウト</button>
     <hr>
     <header-component />
-    <body-component v-if="!user" @form-submitted="onFormSubmitted"></body-component>
+    <body-component v-if="user" @form-submitted="onFormSubmitted" v-bind:user="user"
+     v-bind:user-display-name="user.displayName"></body-component>
     <footer-component />
     <hr>
     <div v-if="isFormSubmitted">
