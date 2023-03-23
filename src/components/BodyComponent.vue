@@ -12,6 +12,7 @@
 
 <script>
 export default {
+  props: ['user', 'userDisplayName'],
   data() {
     return {
       senryuId: '',
@@ -22,8 +23,16 @@ export default {
       timestamp: '',
     };
   },
+  created() {
+    if (this.user && this.user.isGoogleLogin) {
+      this.author = this.userDisplayName;
+    }
+  },
   methods: {
     submitForm() {
+      if (!this.author) {
+        this.author = this.userDisplayName;
+      }
       this.$emit('form-submitted', {
         senryu: this.senryu,
         author: this.author,
@@ -32,7 +41,7 @@ export default {
         timestamp: new Date(),
       });
       this.senryu = '';
-      this.author = '';
+      this.author = this.userDisplayName || '';
       this.jiamari = null;
       this.jifusoku = null;
     },
